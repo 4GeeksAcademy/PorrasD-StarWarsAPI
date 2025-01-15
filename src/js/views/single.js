@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
+// single es el detailed view que lleva unn horizontal crd +card footer con los datos y un boton de agregar a favoritos
 export const Single = props => {
 	const { store, actions } = useContext(Context);
 	const params = useParams();
