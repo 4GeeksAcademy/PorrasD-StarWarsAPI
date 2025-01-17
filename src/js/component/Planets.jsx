@@ -4,6 +4,9 @@ import { Context } from "../store/appContext.js";
 const Planets = () => {
   const { store, actions } = useContext(Context);
 
+
+
+
   useEffect(() => {
     actions.fetchPlanets();
   }, []);
