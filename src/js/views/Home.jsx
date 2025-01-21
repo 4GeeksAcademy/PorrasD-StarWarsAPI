@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 export const Home = () => {
   const { store, actions } = useContext(Context);
 
-  const [activeTab, setActiveTab] = useState("planets"); // Controla la pestaña activa
-  const [page, setPage] = useState(1); // Controla la página actual
+  const [activeTab, setActiveTab] = useState("planets");
+  const [page, setPage] = useState(1);
 
   const fetchData = async (tab, page) => {
     if (tab === "planets") {
@@ -22,7 +22,7 @@ export const Home = () => {
 
   const handleTabClick = async (tab) => {
     setActiveTab(tab);
-    setPage(1); // Reinicia la página a 1 al cambiar de pestaña
+    setPage(1);
     await fetchData(tab, 1);
   };
 
@@ -49,42 +49,63 @@ export const Home = () => {
           ? store.people
           : store.vehicles;
 
+    if (!data || data.length === 0) {
+      return (
+        <div className="d-flex justify-content-center align-items-center" style={{ height: "400px" }}>
+          <img
+            src="https://www.redwolf.in/image/cache/catalog/artwork-Images/mens/may-the-force-be-with-you-artwork-500x667.png?m=1687860626"
+            alt="May the Force be with you..."
+            className="img-fluid"
+            style={{ maxHeight: "300px" }}
+          />
+        </div>
+      );
+    }
+
     return (
       <div className="row">
-        {data &&
-          data.map((item, index) => (
-            <div className="col-md-4 mb-4" key={index}>
-              <Link to={`/details/${activeTab}/${item.uid}`} className="text-decoration-none">
-                <div className="card bg-dark text-white">
-                  <img
-                    src={
-                      activeTab === "planets"
-                        ? `https://starwars-visualguide.com/assets/img/planets/${item.uid}.jpg`
-                        : activeTab === "people"
-                          ? `https://starwars-visualguide.com/assets/img/characters/${item.uid}.jpg`
-                          : `https://starwars-visualguide.com/assets/img/vehicles/${item.uid}.jpg`
-                    }
-                    className="card-img-top"
-                    alt={item.name}
-                    onError={(e) =>
-                    (e.target.src =
-                      "https://via.placeholder.com/400x300?text=Image+Not+Available")
-                    }
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">{item.name}</h5>
-                  </div>
-                  <button
-                    className="btn btn-outline-warning"
-                    onClick={() => actions.toggleFavorite(item)}
-                  >
-                    <i className="fas fa-heart"></i>
-                  </button>            
-
+        {data.map((item, index) => (
+          <div className="col-md-4 mb-4" key={index}>
+            <Link
+              to={`/details/${activeTab}/${item.uid}`}
+              className="text-decoration-none"
+            >
+              <div className="card bg-dark text-white">
+                <img
+                  src={
+                    activeTab === "planets"
+                      ? `https://starwars-visualguide.com/assets/img/planets/${item.uid}.jpg`
+                      : activeTab === "people"
+                        ? `https://starwars-visualguide.com/assets/img/characters/${item.uid}.jpg`
+                        : `https://starwars-visualguide.com/assets/img/vehicles/${item.uid}.jpg`
+                  }
+                  className="card-img-top"
+                  alt={item.name}
+                  onError={(e) =>
+                  (e.target.src =
+                    "https://via.placeholder.com/400x300?text=Image+Not+Available")
+                  }
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{item.name}</h5>
                 </div>
-              </Link>
-            </div>
-          ))}
+                <button
+                  className="btn btn-outline-warning"
+                  onClick={(e) => {
+                    e.preventDefault(); // Esto evita el comportamiento de redirección si el botón está dentro de un enlace
+                    actions.toggleFavorite({
+                      uid: item.uid,
+                      name: item.name,
+                      type: activeTab, // Esto puede ser 'people', 'planets', o 'vehicles'
+                    });
+                  }}
+                >
+                  <i className="fas fa-heart"></i>
+                </button>
+              </div>
+            </Link>
+          </div>
+        ))}
       </div>
     );
   };
@@ -105,7 +126,7 @@ export const Home = () => {
               className="btn btn-dark mb-2"
               onClick={() => handleTabClick("planets")}
             >
-             Planets
+              Planets
             </button>
             <button
               className="btn btn-dark"

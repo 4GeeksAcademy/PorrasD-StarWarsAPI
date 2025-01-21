@@ -52,26 +52,27 @@ const getState = ({ getStore, setStore }) => {
 			  return null;
 			}
 		  },
-	  },
+	 
 	
   
-  toggleFavorite: (item) => {
-	console.log("Item received in toggleFavorite:", item); // Esto te ayudará a verificar los datos recibidos
-	const store = getStore();
-	const isFavorite = store.favorites.some((fav) => fav.uid === item.uid);
-  
-	if (isFavorite) {
-	  setStore({
-		...store,
-		favorites: store.favorites.filter((fav) => fav.uid !== item.uid),
-	  });
-	} else {
-	  setStore({
-		...store,
-		favorites: [...store.favorites, item],
-	  });
-	}
-  },
+	  toggleFavorite: (item) => {
+		console.log("Item received in toggleFavorite:", item); // Esto te ayudará a verificar los datos recibidos
+		const store = getStore();
+		const isFavorite = store.favorites.some((fav) => fav.uid === item.uid);
+	  
+		if (isFavorite) {
+		  setStore({
+			...store,
+			favorites: store.favorites.filter((fav) => fav.uid !== item.uid),
+		  });
+		} else {
+		  setStore({
+			...store,
+			favorites: [...store.favorites, item],
+		  });
+		}
+	  },
+	},
 };
 };
   export default getState;

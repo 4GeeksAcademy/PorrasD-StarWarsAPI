@@ -16,11 +16,11 @@ const People = () => {
       <ul>
         {store.people && store.people.map((people, index) => {
           return (
-            <div class="container text-center">
+            <div className="container text-center">
 
-              <div class=" row">
-                <div class=" col">
-                  <div class="card">
+              <div className=" row">
+                <div className=" col">
+                  <div className="card">
                     <li key={index}>{people.name}
                     </li>
                   </div>

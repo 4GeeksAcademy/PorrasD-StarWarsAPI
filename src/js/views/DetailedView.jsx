@@ -9,7 +9,7 @@ const Details = () => {
 
   useEffect(() => {
     const fetchDetails = async () => {
-      const data = await actions.fetchResourceDetails(type, id);
+      const data = await actions.fetchResourceDetails(type,id);
       setDetails(data);
     };
     fetchDetails();
@@ -24,7 +24,7 @@ const Details = () => {
       <div className="row">
         <div className="col-md-6">
           <img
-            src={`https://starwars-visualguide.com/assets/img/${type}/${id}.jpg`}
+            src={`https://starwars-visualguide.com/assets/img/${type=== "people" ? "characters" : type}/${id}.jpg`}
             alt={details.name || "Detail"}
             className="img-fluid"
             onError={(e) =>

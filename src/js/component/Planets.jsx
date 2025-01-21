@@ -17,11 +17,11 @@ const Planets = () => {
       <ul>
         {store.planets && store.planets.map((planet, index) => {
           return (
-            <div class="container text-center">
+            <div className="container text-center">
 
-              <div class=" row">
-                <div class=" col">
-                  <div class="card">
+              <div className=" row">
+                <div className=" col">
+                  <div className="card">
                     <li key={index}>{planet.name}
                     </li>
                   </div>

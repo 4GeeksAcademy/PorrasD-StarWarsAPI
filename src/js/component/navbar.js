@@ -6,11 +6,11 @@ export const Navbar = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<nav className="navbar bg-dark mb-3">
+		<nav className="navbar bg-dark mb-3 p-2">
 			<Link to="/">
-				<span className="navbar-brand text-danger mb-0 h1">Home</span>
+				<span className="navbar-brand text-danger mb-0 h1"><i className="fa-solid fa-jedi"></i></span>
 			</Link>
-			<div className="ml-auto">
+			<div className="ml-auto mt-3 mb-3 ">
 				<div className="dropdown">
 					<button
 						className="btn btn-outline-danger dropdown-toggle"
@@ -21,7 +21,7 @@ export const Navbar = () => {
 					>
 						Favorites ({store.favorites.length})
 					</button>
-					<ul className="dropdown-menu" aria-labelledby="favoritesDropdown">
+					<ul className="dropdown-menu dropdown-menu-end" aria-labelledby="favoritesDropdown">
 						{store.favorites.length === 0 ? (
 							<li className="dropdown-item text-muted">No favorites added</li>
 						) : (
